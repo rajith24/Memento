@@ -1,11 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment,OBJECT,PARAM,EMBED } from "react";
 import ReactDOM from 'react-dom';
 
 import { Row, Col, Button, ButtonGroup, Container, Card, CardHeader, CardBody,
 TabContent, TabPane, FormGroup, Input, Label, CustomInput  } from 'reactstrap';
 import sampleVideo from '../src/1.mp4'
-import audio from '../src/1.mp3'
+import audio from './1.mp3'
 import '../src/App.css'
+import $ from 'jquery'; 
+// import Howl from "howler"
+let audioPlay = new Audio(audio)
 
 class App extends React.Component {
   
@@ -20,25 +23,109 @@ class App extends React.Component {
 
     this.state = {
       play: false,
+      userName : "",
+      password : "",
     }
     // this.audio = new Audio(Audio)
   
   }
 
-  componentDidMount() {
-    new Audio(audio).play();
+  componentDidMount = async() => {
+
+    // audioPlay.load();
+    // $("#test").get(0).play();
+    // document.getElementById("my_audio").click();
+    setTimeout(() => {
+      // new Audio(audio).play();
+      // document.getElementById("test").pause();
+      // document.getElementById("test").setAttribute('src', audio);
+      // document.getElementById("test").load();
+      // document.getElementById("test").play();
+      // $( "#cardID" ).click();
+      // // $('body').trigger('click')
+      // // $("#my_audio").trigger("click");
+      // document.getElementById("test").setAttribute('muted', '');
+      // document.getElementById("videoTag").setAttribute('muted', '');
+      // // $("#test").get(0).play();
+      // // document.getElementById("my_audio").click();
+      // // $(".my_audio").trigger('load');
+      // document.querySelector('signInCard').addEventListener('click', function() {
+      //   new Audio(audio).play();
+      // });
+    },3000)
+
+    var context = new AudioContext();
+
+    // window.onload = function() {
+    //   var context = new AudioContext();
+    //   // Setup all nodes
+    //   // ...
+    // }
+    
+    // One-liner to resume playback when user interacted with the page.
+    
+
+    // window.onload = function() {
+    //   // $( "#my_audio" ).click();
+    //   $("#test").get(0).play();
+    //   // document.getElementById("my_audio").click();
+    //   // $(".my_audio").trigger('load');
+    //   // document.getElementById("my_audio").click();
+    // }
+  // document.body.addEventListener("mouseenter", function () {
+  //         $( "#my_audio" ).click();
+  // })
+    // $(".my_audio").trigger('load');
+
+    // var sound = new Howl({
+    //   src: ["./1.mp3"],
+    //   volume: 1.0,
+    //   onend: function () {
+    //     alert('We finished with the setup!');
+    //   }
+    // });
+    // sound.play()
+  }
+
+  audioLoad = () => {
+      new Audio(audio).play();
+      // $("#test").get(0).play();
+      // document.getElementById("test").setAttribute('muted', 'false');
+
+      // console.log($("#test"))
+      // audio.muted = false;
+      // audioPlay.play()
+      // console.log("hi")
+  }
+
+  handleUserName = (e) =>{
+    // console.log(e.currentTarget.value)
+    this.setState({
+      userName : e.currentTarget.value,
+    })
+  }
+
+  handlePassword = (e) =>{
+    // console.log(e.currentTarget.value)
+    this.setState({
+      password : e.currentTarget.value,
+    })
   }
 
 render() {
   return (
     <Fragment>
       <div>
-        <video className='VideoTag' autoPlay loop muted>
+        <video className='VideoTag' id="videoTag" autoPlay loop playsInline muted>
           <source src={sampleVideo} type='video/mp4'/>
         </video>
+        {/* <button type="button" id ="my_audio" data-bs-display="static" onClick = {this.audioLoad} style={{position: "absolute",zIndex:"10000"}} >hi</button>
+          <audio id="test"  src={audio} type="audio/mpeg" controls autoplay loop muted>
+              <source src={audio} type="audio/mpeg"/>
+          </audio> */}
       </div>
       <div style={{position: "absolute"}}>
-      <Card className="card-hover-shadow profile-responsive card-border signInCard">
+      <Card className="card-hover-shadow profile-responsive card-border signInCard" id = "cardID">
           <CardHeader className="col-12 card-header-tab card-header-tab-animation bg-dark" style={{textAlign: "center"}}>
             <div className="page-title-heading" style={{color:"white", fontSize:"medium"}}>
                MEMENTO
@@ -61,7 +148,7 @@ render() {
                 </Row>
                 <Row>
                   {/* <Input></Input> */}
-                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleFirstName} placeholder="State Your Name" autocomplete="off" required/>
+                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleUserName} placeholder="State Your Name" autocomplete="off" required/>
                 </Row>
                 <Row>
                   <Label>Password</Label>
@@ -70,7 +157,7 @@ render() {
                   <Input type="password" name="password" id="examplePassword" onChange={this.handlePassword} placeholder="Cast Your Spell"/>
                 </Row>
                 <Row>
-                  <Button  className="mt-3">ENTER</Button>
+                  <Button  className="mt-3" onClick = {this.validate}>ENTER</Button>
                 </Row>
                 </Col>
               </div>
@@ -81,14 +168,14 @@ render() {
                 </Row>
                 <Row>
                   {/* <Input></Input> */}
-                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleFirstName} placeholder="State Your Name" autocomplete="off" required/>
+                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleUserName} placeholder="State Your Name" autocomplete="off" required/>
                 </Row>
                 <Row>
                   <Label className="">Email</Label>
                 </Row>
                 <Row>
                   {/* <Input></Input> */}
-                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleFirstName} placeholder="Seceret Code" autocomplete="off" required/>
+                  <input type="text" className="form-control" id="validationServer01" onChange={this.handleEmail} placeholder="Seceret Code" autocomplete="off" required/>
                 </Row>
                 <Row>
                   <Label>Password</Label>
